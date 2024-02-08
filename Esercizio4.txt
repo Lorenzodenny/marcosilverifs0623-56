@@ -1,0 +1,132 @@
+3)
+a)
+
+SELECT *
+  FROM [dbo].[Impiegato]
+  where Eta > 29
+
+b)
+
+SELECT *
+  FROM [dbo].[Impiegato]
+  where RedditoMensile > 800
+
+c)
+
+
+SELECT *
+  FROM [dbo].[Impiegato]
+ where DetrazioneFiscale = 0
+
+d)
+
+
+SELECT *
+  FROM [dbo].[Impiegato]
+ where DetrazioneFiscale = 1
+
+e)
+
+SELECT *
+  FROM [dbo].[Impiegato]
+ where Cognome like 'G%'
+ order by Cognome
+
+f)
+
+SELECT count(*) as contoTotale
+  FROM [dbo].[Impiegato]
+
+g)
+
+SELECT sum(RedditoMensile) as TotaleSpeseAziendale
+  FROM [dbo].[Impiegato]
+
+h)
+
+SELECT avg(RedditoMensile) as  MediaSpeseAziendali
+  FROM [dbo].[Impiegato]
+
+i)
+
+SELECT max(RedditoMensile)
+  FROM [dbo].[Impiegato]
+
+j)
+
+SELECT min(RedditoMensile)
+  FROM [dbo].[Impiegato]
+
+k)
+
+SELECT *
+  FROM [dbo].[Impiegato]
+  WHERE DataAssunzione BETWEEN '2007-01-01' AND '2008-01-01'
+
+l)
+
+select *
+from Impiegato as y
+join impiego as x on x.IDImpiego = y.IDImpiego
+where TipoImpiego like 'Analista'
+
+m)
+
+select avg(Eta)
+from Impiegato
+
+4)
+a)
+
+CREATE PROCEDURE InserisciImpiegato
+    @Cognome VARCHAR(50),
+    @Nome VARCHAR(50),
+    @CodiceFiscale NCHAR(16),
+    @Eta INT,
+    @RedditoMensile MONEY,
+    @DetrazioneFiscale BIT,
+    @DataAssunzione DATE
+AS
+BEGIN
+    INSERT INTO Impiegato(Cognome, Nome, CodiceFiscale, Eta, RedditoMensile, DetrazioneFiscale, DataAssunzione)
+    VALUES (@Cognome, @Nome, @CodiceFiscale, @Eta, @RedditoMensile, @DetrazioneFiscale, @DataAssunzione);
+END;
+
+b)
+
+CREATE PROCEDURE AggiornaImpiegatio
+    @ID INT,
+    @Cognome VARCHAR(50),
+    @Nome VARCHAR(50),
+    @CodiceFiscale NCHAR(16),
+    @Eta INT,
+    @RedditoMensile MONEY,
+    @DetrazioneFiscale BIT,
+    @DataAssunzione DATE
+AS
+BEGIN
+    UPDATE Impiegato
+    SET Cognome = @Cognome,
+        Nome = @Nome,
+        CodiceFiscale = @CodiceFiscale,
+        Eta = @Eta,
+        RedditoMensile = @RedditoMensile,
+        DetrazioneFiscale = @DetrazioneFiscale,
+        DataAssunzione = @DataAssunzione
+    WHERE IDImpiegato = @ID;
+END;
+
+c)
+
+CREATE PROCEDURE EliminaImpiegato
+    @Nome varchar(50)
+AS
+BEGIN
+    DELETE FROM Impiegato
+    WHERE Nome = @Nome;
+END;
+
+
+
+
+
